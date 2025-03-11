@@ -1,0 +1,174 @@
+<odoo>
+    <!-- Student Views -->
+    <record id="view_student_tree" model="ir.ui.view">
+        <field name="name">student.tree</field>
+        <field name="model">student.student</field>
+        <field name="arch" type="xml">
+            <tree string="Students" decoration-bf="class_level == 'Senior'" decoration-danger="age > 18">
+                <field name="name"/>
+                <field name="student_id"/>
+                <field name="age"/>
+                <field name="class_level" widget="badge"/>
+            </tree>
+        </field>
+    </record>
+<record id="view_student_kanban" model="ir.ui.view">
+    <field name="name">student.kanban</field>
+    <field name="model">student.student</field>
+    <field name="arch" type="xml">
+        <kanban default_group_by="class_level" class="o_kanban_view">
+            <templates>
+                <t t-name="kanban-box">
+                    <div class="o_kanban_record">
+<!--                        <div class="o_kanban_image">-->
+<!--                            <img src="/web/image?model=res.users&amp;id=<t t-esc='record.user_id.raw_value' />&amp;field=image_128" class="img-circle"/>-->
+<!--                        </div>-->
+                        <div class="o_kanban_details">
+                            <strong><t t-esc="record.name or 'No Name'"/></strong>
+                            <span class="badge badge-info">
+                                <t t-esc="record.class_level or 'Unknown'"/>
+                            </span>
+                            <span>Age: <t t-esc="record.age or 'N/A'"/></span>
+                        </div>
+                    </div>
+                </t>
+            </templates>
+        </kanban>
+    </field>
+</record>
+
+
+    <record id="view_student_form" model="ir.ui.view">
+        <field name="name">student.form</field>
+        <field name="model">student.student</field>
+        <field name="arch" type="xml">
+            <form string="Student">
+                <sheet>
+                    <group>
+                        <field name="name"/>
+                        <field name="student_id"/>
+                        <field name="age"/>
+                        <field name="class_level"/>
+                        <field name="user_id"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_student" model="ir.actions.act_window">
+        <field name="name">Student Form</field>
+        <field name="res_model">student.student</field>
+         <field name="view_mode">kanban,tree,form</field>
+    </record>
+
+    <!-- Teacher Views -->
+    <record id="view_teacher_tree" model="ir.ui.view">
+        <field name="name">teacher.tree</field>
+        <field name="model">teacher.teacher</field>
+        <field name="arch" type="xml">
+            <tree string="Teachers">
+                <field name="name"/>
+                <field name="teacher_code"/>
+                <field name="subject_ids"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="view_teacher_form" model="ir.ui.view">
+        <field name="name">teacher.form</field>
+        <field name="model">teacher.teacher</field>
+        <field name="arch" type="xml">
+            <form string="Teacher">
+                <sheet>
+                    <group>
+                        <field name="name"/>
+                        <field name="teacher_code"/>
+                        <field name="subject_ids"/>
+                        <field name="students" widget="many2many_tags" options="{'no_create': True}"/>
+
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_teacher" model="ir.actions.act_window">
+        <field name="name">Teachers</field>
+        <field name="res_model">teacher.teacher</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <!-- Subject Views -->
+    <record id="view_subject_tree" model="ir.ui.view">
+        <field name="name">subject.tree</field>
+        <field name="model">school.subject</field>
+        <field name="arch" type="xml">
+            <tree string="Subjects">
+                <field name="name"/>
+                <field name="subject_code"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="view_subject_form" model="ir.ui.view">
+        <field name="name">subject.form</field>
+        <field name="model">school.subject</field>
+        <field name="arch" type="xml">
+            <form string="Subject">
+                <sheet>
+                    <group>
+                        <field name="name"/>
+                        <field name="subject_code"/>
+                        <field name="unit_ids"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_subject" model="ir.actions.act_window">
+        <field name="name">Subjects</field>
+        <field name="res_model">school.subject</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <!-- Grade Views -->
+    <record id="view_grade_tree" model="ir.ui.view">
+        <field name="name">grade.tree</field>
+        <field name="model">student.grade</field>
+        <field name="arch" type="xml">
+            <tree string="Grades">
+                <field name="student_id"/>
+                <field name="subject_id"/>
+                <field name="teacher_id"/>
+                <field name="grade"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="view_grade_form" model="ir.ui.view">
+        <field name="name">grade.form</field>
+        <field name="model">student.grade</field>
+        <field name="arch" type="xml">
+            <form string="Grade Entry">
+                <sheet>
+                    <group>
+                        <field name="student_id"/>
+                        <field name="subject_id"/>
+                        <field name="teacher_id"/>
+                        <field name="mark"/>
+                        <field name="grade"/>
+                        <field name="remarks"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_grade" model="ir.actions.act_window">
+        <field name="name">Grades</field>
+        <field name="res_model">student.grade</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+</odoo>

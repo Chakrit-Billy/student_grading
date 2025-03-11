@@ -1,0 +1,21 @@
+<odoo>
+    <record id="view_grade_form" model="ir.ui.view">
+        <field name="name">grade.form</field>
+        <field name="model">student.grade</field>
+        <field name="arch" type="xml">
+            <form string="Grade Entry">
+                <sheet>
+                    <group>
+                        <field name="teacher_id"/>
+                        <field name="student_id"/>
+                        <field name="subject_id"/>
+                        <field name="unit"/>
+                        <field name="mark"/>
+                        <field name="grade"/>
+                        <field name="remarks"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+</odoo>
